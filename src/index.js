@@ -12,8 +12,7 @@ app.listen(3000, async () => {
     console.log("MongoDB Connected");
 
     const tweetRepo = new TweetRepository();
-    const tweet = await tweetRepo.getWithComment('63de93840616b55674ade061');
-
-    console.log(tweet);
+    // const tweet = await tweetRepo.create({content: 'Hooks in mongoose now'});
+    // console.log(tweet);
 
 });

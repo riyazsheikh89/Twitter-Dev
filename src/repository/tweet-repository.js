@@ -20,6 +20,15 @@ class TweetRepository {
         }
     }
 
+    async getAll(offset, limit) {
+        try {
+            const tweet = Tweet.find().skip(offset).limit(limit);
+            return tweet;
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     async getWithComment(id) {
         try {
             const tweet = Tweet.findById(id).populate({path: 'comments'});
