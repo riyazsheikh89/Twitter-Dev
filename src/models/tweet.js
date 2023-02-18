@@ -4,28 +4,17 @@ const tweetSchema = new mongoose.Schema({
     content: {
         type: String,
         required: true,
+        max: [250, 'You have reached character limit of 250!']
     },
-    userEmail: {
-        type: String
-    },
-    /* comments: [{   
-            content: {
-                type: String,
-                required: true 
-            }
-        }] */
-
-    comments: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Comment'
-    }]
+    hashtags: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Hashtag'
+        }
+    ]
+    
 }, {timestamps: true});
 
-tweetSchema.pre('save', function(next) {
-    console.log('Inside a Hook')
-    this.content = this.content + '....'
-    next();
-})
 
 const Tweet = mongoose.model('Tweet', tweetSchema);
 
