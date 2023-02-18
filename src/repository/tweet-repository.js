@@ -38,14 +38,15 @@ class TweetRepository {
         }
     }
 
-    async update(tweetId, data) {
+    // User can't update the tweet, as in Original Tweeter
+    /* async update(tweetId, data) {
         try {
             const tweet = Tweet.findByIdAndUpdate(tweetId, data, {new: true});
             return tweet;
         } catch (error) {
             console.log(error);
         }
-    }
+    } */
 
     async destroy(id) {
         try {

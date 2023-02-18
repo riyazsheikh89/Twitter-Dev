@@ -3,6 +3,7 @@ const express = require('express');
 const connect = require('./config/database');
 const TweetRepository = require('./repository/tweet-repository');
 const Comment = require('./models/comment');
+const Tweet = require('./models/tweet');
 
 
 const app = express();
@@ -30,8 +31,7 @@ app.listen(3000, async () => {
     await connect();
     console.log("MongoDB Connected");
 
-    // const tweetRepo = new TweetRepository();
-    // const tweet = await tweetRepo.create({content: 'today is Feb 15'});
-    // console.log(tweet);
+    const tweets = await Tweet.find({content: ['4th tweet', '5th tweet', '7th tweet']});
+    console.log(tweets);
 
 });
