@@ -8,9 +8,8 @@ import { authenticate } from '../../middlewares/authentication.js';
 const router = express.Router();
 
 router.post('/tweets', authenticate, createTweet);        // create new tweet
-router.post('/comments', createComment);    // create a new comment
-
-router.post('/likes/toggle', toggleLike);   // like or dislike tweet
+router.post('/comments', authenticate, createComment);    // create a new comment
+router.post('/likes/toggle', authenticate, toggleLike);   // like or dislike tweet
 
 router.post('/signup', signUp);             // sign-up new user
 router.post('/login', login);               // log-in
