@@ -20,7 +20,7 @@ export const createComment = async (req, res) => {
         return res.status(200).json({
             success: false,
             data: {},
-            message: 'Something went wrong at controller layer!',
+            message: 'Something went wrong at comment-controller layer!',
             err: error
         })
     }

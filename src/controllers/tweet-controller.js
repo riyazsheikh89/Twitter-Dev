@@ -14,7 +14,26 @@ export const createTweet = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "OOPs! Something went wrong at controller layer",
+            message: "Something went wrong at tweet-controller layer",
+            data: {},
+            err: error
+        });
+    }
+}
+
+export const getAllTweets = async (req, res) => {
+    try {
+        const response = await tweetService.getAllTweets();
+        return res.status(201).json({
+            success: true,
+            message: 'Successfully fetched tweets',
+            data: response,
+            err: {}
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Something went wrong at tweet-controller layer",
             data: {},
             err: error
         });

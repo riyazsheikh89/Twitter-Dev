@@ -20,7 +20,7 @@ export const toggleLike = async (req, res) => {
         return res.status(500).json({
             success: false,
             data: {},
-            message: "Something went wrong at controller layer!",
+            message: "Something went wrong at like-controller layer!",
             err: error
         });
     }

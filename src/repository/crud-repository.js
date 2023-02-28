@@ -9,6 +9,7 @@ class CrudRepository {
             return response;
         } catch (error) {
             console.log('Oops! Something went wrong at CRUD repo');
+            throw error;
         }
     }
 

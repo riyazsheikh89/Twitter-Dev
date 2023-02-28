@@ -19,7 +19,7 @@ export const signUp = async (req, res) => {
         return res.status(500).json({
             success: false,
             data: {},
-            message: 'Something went at user-controller!',
+            message: 'Something went wrong with signUp, at user-controller!',
             err: error
         });
     }
@@ -27,7 +27,7 @@ export const signUp = async (req, res) => {
 
 export const login = async (req, res) => {
     try {
-        const token = await userService.LogIn(req.body);
+        const token = await userService.logIn(req.body);
         return res.status(200).json({
             success: true,
             message: 'Successfully logged in',
@@ -37,7 +37,7 @@ export const login = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: 'Something went wrong at controller',
+            message: 'Something went wrong with login, at user-controller layer!',
             data: {},
             err: error
         });

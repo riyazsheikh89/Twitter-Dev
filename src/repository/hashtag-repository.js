@@ -40,7 +40,7 @@ class HashtagRepository {
 
     async findByName(titleList) {
         try {
-            // titleList is an array and find() returns an object, 
+            // titleList is an array and find() returns all the hashtags that mathces with the title 
             const tags = await Hashtag.find({ title: titleList });
             return tags;
         } catch (error) {

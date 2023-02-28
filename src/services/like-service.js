@@ -22,7 +22,7 @@ class LikeService {
         const existLike = await this.likeRepository.findByUserAndLikeable({
             onModel: modelType,
             likeable: modelId,
-            user: userId
+            userId: userId
         });
         
         if(existLike) {
@@ -34,7 +34,7 @@ class LikeService {
             const newLike = await this.likeRepository.create({
                 onModel: modelType,
                 likeable: modelId,
-                user: userId
+                userId: userId
             });
             likeable.likes.push(newLike);
             await likeable.save();

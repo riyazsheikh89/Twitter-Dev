@@ -20,7 +20,6 @@ export const passportAuth = (passport) => {
             }
         }))
     } catch (error) {
-        console.log('Error in middleware', error);
         throw error;
     }
 } 

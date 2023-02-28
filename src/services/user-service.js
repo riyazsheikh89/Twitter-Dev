@@ -23,7 +23,7 @@ class UserService {
         }
     }
 
-    async LogIn(data) {
+    async logIn(data) {
         try {
             const user = await this.getUserByEmail(data.email);
             if(!user) {

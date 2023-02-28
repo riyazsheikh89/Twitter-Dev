@@ -9,24 +9,21 @@ class CommentService {
     async create(modelId, modelType, userId, content) {
         if (modelType == 'Tweet') {
             var commentable = await this.tweetRepo.get(modelId);
-        } else if (modelType == 'Comment') {
+        } 
+        else if (modelType == 'Comment') {
             var commentable = await this.commentRepo.get(modelId);
-        } else {
-            throw new Error('Unkonwn modelType!');
+        } 
+        else {
+            throw new Error('Error from service: Unkonwn modelType!');
         }
-
-        console.log("from service:", commentable);
         const newComment = await this.commentRepo.create({
                 commentable: modelId,
                 onModel: modelType,
                 userId: userId,
                 content: content,
-                comments: []
         });
-
         commentable.comments.push(newComment);
         await commentable.save();
-
         return newComment;
     }
 }
