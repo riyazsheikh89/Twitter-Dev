@@ -11,7 +11,7 @@ export const toggleLike = async (req, res) => {
         );
         return res.status(200).json({
             success: true,
-            data: response,
+            isLikeAdded: response,
             message: "Woohoo! Toggle Like is working fine",
             err: {}
         })

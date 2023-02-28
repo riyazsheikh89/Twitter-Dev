@@ -7,11 +7,12 @@ class LikeService {
     }
 
     // toggleLike: like or dislike
-    async toggleLike(modelId, modelType, userId) {  //URL: /api/v1/toggle?id=modelId&type=modelType
+    async toggleLike(modelId, modelType, userId) {
 
-        if(modelType == 'Tweet') { //toggle on tweet
+        if(modelType == 'Tweet') {          //toggle like on tweet
             var likeable = await this.tweetRepository.find(modelId);
-        } else if(modelType == 'Comment') { //toggle on comment
+        } 
+        else if(modelType == 'Comment') {   //toggle like on comment
             // TODO
         } else {
             throw new Error("Unknown model type!");
@@ -38,7 +39,6 @@ class LikeService {
             await likeable.save();
             var isAdded = true;
         }
-
         return isAdded;
     }
 }

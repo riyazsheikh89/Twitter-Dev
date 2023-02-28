@@ -32,6 +32,7 @@ userSchema.methods.comparePassword = function compare(password) {
 
 userSchema.methods.genJWT = function generate() {
     return jwt.sign({id: this._id, email: this.email}, 'twitter_key', {expiresIn: '1h'});
+    // {expiresIn: 60*60} -> we can write inside a 'string' or directly in digits, it counts in seconds
 }
 
 const User = mongoose.model('User', userSchema);
