@@ -1,7 +1,7 @@
 import TweetService from '../services/tweet-service.js';
 import upload from '../config/file-upload-s3-config.js';
 
-const singleUploader = upload.single('image');
+const singleUploader = upload.array('image', 3);
 
 const tweetService = new TweetService();
 
@@ -9,16 +9,24 @@ export const createTweet = async (req, res) => {
     try {
         singleUploader(req, res, async function(err, data) {
             if (err) {
-                return res.status(500).json({error: err})
+                return res.status(500).json({error: err});
             }
-            console.log('Image URL is: ', req.file);
-            const payload = {...req.body};
-            payload.image = req.file.location;
-            const response = await tweetService.create(payload);
+
+            if(req.files === undefined) { // if there is no image with the tweet
+                var tweet = await tweetService.create(req.body);
+            }
+            else {
+                let filesArray = req.files;
+                var tweet = await tweetService.create(req.body);
+                filesArray.forEach(files => {
+                    tweet.images.push(files.location);
+                });
+                tweet.save();
+            }
             return res.status(201).json({
                 success: true,
                 message: 'Successfully created a new tweet',
-                data: response,
+                data: tweet,
                 err: {}
             });
         });
@@ -32,13 +40,14 @@ export const createTweet = async (req, res) => {
     }
 }
 
+
 export const getAllTweets = async (req, res) => {
     try {
-        const response = await tweetService.getAllTweets();
+        const tweet = await tweetService.getAllTweets();
         return res.status(201).json({
             success: true,
             message: 'Successfully fetched tweets',
-            data: response,
+            data: tweet,
             err: {}
         });
     } catch (error) {
