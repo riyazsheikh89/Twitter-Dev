@@ -6,6 +6,11 @@ const tweetSchema = new mongoose.Schema({
         required: true,
         max: [280, 'You have reached max. character limit of 250!']
     },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
     likes: [
         {
             type: mongoose.Schema.Types.ObjectId,

@@ -13,11 +13,11 @@ export const createTweet = async (req, res) => {
             }
 
             if(req.files === undefined) { // if there is no image with the tweet
-                var tweet = await tweetService.create(req.body);
+                var tweet = await tweetService.create(req.body.content, req.user.id);
             }
             else {
                 let filesArray = req.files;
-                var tweet = await tweetService.create(req.body);
+                var tweet = await tweetService.create(req.body.content, req.user.id);
                 filesArray.forEach(files => {
                     tweet.images.push(files.location);
                 });

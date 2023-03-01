@@ -6,12 +6,16 @@ class TweetService {
         this.hashtagRepository = new HashtagRepository();
     }
 
-    async create(data) {
-        const content = data.content;
+    async create(tweetContent, userId) {
+        const content = tweetContent;
         let tags = content.match(/#[a-zA-Z0-9_]+/g);
+        
         if (tags) {   //if there are tags available inside the tweet content
           tags = tags.map((tag) => tag.substring(1).toLowerCase()); // removing the preceding #, and convert to LowerCase
-          const tweet = await this.tweetRepository.create(data);
+          const tweet = await this.tweetRepository.create({
+            content: tweetContent,
+            userId: userId,
+          });
 
           let alreadyPresentTags = await this.hashtagRepository.findByName(tags);
           let titleOfPresentTags = alreadyPresentTags.map((tags) => tags.title);
@@ -20,15 +24,18 @@ class TweetService {
             return { title: tag, tweets: [tweet.id] };
           });
           await this.hashtagRepository.bulkCreate(newTags);
-          
-          alreadyPresentTags.forEach((tag) => {  // after tweet creation, we need to add tweet_id to the 'alreadyPresentTags'
+
+          alreadyPresentTags.forEach((tag) => { // after tweet creation, we need to add tweet_id to the 'alreadyPresentTags'
             tag.tweets.push(tweet.id);
             tag.save();
           });
           return tweet;
-        } 
-        else {
-          const tweet = await this.tweetRepository.create(data);
+        }
+        else {  // if the tweet contains no #tags, then create simple tweet and retun
+          const tweet = await this.tweetRepository.create({
+            content: tweetContent,
+            userId: userId,
+          });
           return tweet;
         }
         
