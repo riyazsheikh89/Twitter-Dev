@@ -33,6 +33,15 @@ class TweetRepository extends CrudRepository {
         }
     }
 
+    async findAll() {
+        try {
+            const tweets = await Tweet.find({});
+            return tweets;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 }
 
 export default TweetRepository;

@@ -40,6 +40,11 @@ class TweetService {
         }
         
     }
+
+
+    async getAllTweets() {
+      return await this.tweetRepository.findAll();
+    }
 }
 
 export default TweetService;
